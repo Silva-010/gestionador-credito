@@ -1,5 +1,6 @@
 from django import forms
 from .models import Cliente
+from .validador_rut import validar_rut_chileno, formatear_rut
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -65,3 +66,18 @@ class ClienteForm(forms.ModelForm):
                 } 
             ),
         }
+        
+    def clean_rut(self):
+        rut = self.cleaned_data.get('rut')
+
+        # Utiliza la función validar_rut_chileno para validar el campo "rut"
+        if not validar_rut_chileno(rut):
+            raise forms.ValidationError("El RUT no es válido. Por favor, ingrese un RUT chileno válido.")
+
+        # Formatea el RUT utilizando la función formatear_rut
+        rut_formateado = formatear_rut(rut)
+
+        # Actualiza el valor del campo "rut" en los datos limpios (cleaned_data)
+        self.cleaned_data['rut'] = rut_formateado
+
+        return rut_formateado

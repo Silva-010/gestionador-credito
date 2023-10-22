@@ -16,10 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView, logout_then_login
 from apps.cliente.views import Inicio
+from apps.usuario.views import Login, logoutUser
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cliente/', include(('apps.cliente.urls', 'cliente'))),
-    path('', Inicio.as_view(), name= 'index')
+    path('banco/', include(('apps.banco.urls', 'banco'))),
+    path('ejecutivo/', include(('apps.ejecutivo.urls', 'ejecutivo'))),
+    path('solicitud/', include(('apps.solicitud.urls', 'solicitud'))),
+    path('credito/', include(('apps.credito.urls', 'credito'))),
+    path('pago/', include(('apps.pago.urls', 'pago'))),
+    path('', login_required(Inicio.as_view()), name= 'index'),
+    path('accounts/login/', Login.as_view(), name= 'login'),
+    path('logout',login_required(logoutUser), name= 'logout'),
 ]

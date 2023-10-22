@@ -8,6 +8,7 @@ class Ejecutivo(models.Model):
     apellido_materno = models.CharField(max_length=100)
     email = models.EmailField(max_length=254)
     telefono = models.CharField(max_length=15)
+    visibilidad = models.BooleanField('Visibilidad', default= True)
 
     def __str__(self):
         return f"{self.nombre} {self.apellido_paterno} {self.apellido_materno}"

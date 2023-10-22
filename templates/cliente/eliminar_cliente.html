@@ -1,17 +1,21 @@
-<!-- Heredar desde la plantilla Index -->
-{% extends 'index.html' %}
-
-<!-- Bloque del titulo -->
-{% block titulo %}
-    Eliminación de Cliente
-{% endblock titulo %}
-
-<!-- Bloque del body -->
-{% block body %}
-<form method="POST">
-    {% csrf_token %}
-    <h2>¿Desea eliminar el Cliente: {{ cliente.nombres }} {{ cliente.apellido_paterno }} ( {{ cliente.rut }} ) ?</h2>
-        <button type="submit"> Eliminar </button>
-        <a href="{% url 'cliente:listar_cliente' %}"> Cancelar </a>
-</form>
-{% endblock body %}
+<div class="modal-dialog modal-default nk-red">
+    <div class="modal-content">
+        <div class="modal-header">
+            Eliminación de cliente
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-center"> {% csrf_token %}
+            <p id="texto_modal_eliminacion"><strong> ¿Desea eliminar {{ object }}?</strong></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-sm" data-align="right" onclick="eliminar({{ object.pk }});">
+                <i class="fa fa-trash-o">
+                    Confirmar Eliminación
+                </i>
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>

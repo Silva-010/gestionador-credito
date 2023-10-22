@@ -19,6 +19,7 @@ class Pago(models.Model):
     fecha_pago = models.DateField()
     estado_pago = models.CharField(max_length=20, choices=ESTADO_PAGO_CHOICES, default='realizado')
     tipo_pago = models.CharField(max_length=20, choices=TIPO_PAGO_CHOICES, default='principal')
+    visibilidad = models.BooleanField('Visibilidad', default= True)
 
     def __str__(self):
         return f"Pago de {self.monto_pagado} para {self.credito}"

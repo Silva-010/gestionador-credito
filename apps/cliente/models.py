@@ -12,9 +12,9 @@ class Cliente(models.Model):
     visibilidad = models.BooleanField('Visibilidad', default= True)
 
     def __str__(self):
-        return f"{self.nombres} {self.apellido_paterno} {self.apellido_materno} | {self.rut}"
+        return f"{self.rut} | {self.nombres} {self.apellido_paterno}"
 
     class Meta:
         verbose_name = 'Cliente'
         verbose_name_plural = 'Clientes'
-        ordering = ['fecha_registro']
+        ordering = ['apellido_paterno']

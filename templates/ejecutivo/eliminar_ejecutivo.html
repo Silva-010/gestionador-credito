@@ -1,0 +1,21 @@
+<div class="modal-dialog modal-default nk-red">
+    <div class="modal-content">
+        <div class="modal-header">
+            Eliminación de ejecutivo
+            <button class="close" type="button" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body text-center"> {% csrf_token %}
+            <p id="texto_modal_eliminacion"><strong> ¿Desea eliminar {{ object }}?</strong></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-sm" data-align="right" onclick="eliminar({{ object.pk }});">
+                <i class="fa fa-trash-o">
+                    Confirmar Eliminación
+                </i>
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</div>

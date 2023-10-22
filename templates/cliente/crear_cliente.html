@@ -1,73 +1,23 @@
-<!-- Heredar desde la plantilla Index -->
-{% extends 'index.html' %}
-
-<!-- Bloque del titulo -->
-{% block titulo %}
-    Creación de Cliente
-{% endblock titulo %}
-
-<!-- Bloque del body -->
-{% block body %}
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">Creación de Cliente</div>
-            <div class="card-body card-block">
-                <form method="POST">
-                    {% csrf_token %}
-                    {% if error  %}
-                        <h2>{{ error }}</h2>
-                    {% else %}
-                    <div class="row form-group">
-                        <div class="col col-md-3">{{ form.rut.label }}</div>
-                        <div class="col-12 col-md-9">{{ form.rut }}</div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col col-md-3">{{ form.nombres.label }}</div>
-                        <div class="col-12 col-md-9">{{ form.nombres }}</div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col col-md-3">{{ form.apellido_paterno.label }}</div>
-                        <div class="col-12 col-md-9">{{ form.apellido_paterno }}</div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col col-md-3">{{ form.apellido_materno.label }}</div>
-                        <div class="col-12 col-md-9">{{ form.apellido_materno }}</div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col col-md-3">{{ form.email.label }}</div>
-                        <div class="col-12 col-md-9">{{ form.email }}</div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col col-md-3">{{ form.telefono.label }}</div>
-                        <div class="col-12 col-md-9">{{ form.telefono }}</div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col col-md-3">{{ form.direccion.label }}</div>
-                        <div class="col-12 col-md-9">{{ form.direccion }}</div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col col-md-3">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-plus"></i> Crear
-                            </button>
-                            <button type="reset" class="btn btn-danger">
-                                <i class="fa fa-ban"></i> Cancelar
-                            </button>
-                        </div>
-                        <div class="col col-md-3">
-                            
-                        </div>
-                    </div>
-                    {% endif %}
-                </form>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-sm">
-                    <i class="fa fa-dot-circle-o"></i> Volver
-                </button>
-            </div>
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Creacion de cliente</h2>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-    </div><!-- /# column -->
+        <form id="form_creacion" method="POST" action="{% url 'cliente:crear_cliente' %}">
+            {% csrf_token %}
+            <div class="modal-body">
+                <div id="errores">
+
+                </div>
+                {{ form.as_p }}
+            </div>
+            <div class="modal-footer">
+                <button id="boton_creacion" class="btn btn-primary" type="button" onclick="registrar(listadoClientes());">Confirmar</button>
+                <button class="btn btn-danger" type="button" onclick="cerrar_modal_creacion();">Cancelar</button>
+            </div>
+        </form>
+    </div>
 </div>
-{% endblock body %}

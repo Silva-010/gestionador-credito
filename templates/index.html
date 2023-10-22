@@ -7,8 +7,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% block titulo %}Ela Admin - HTML5 Admin Template {% endblock titulo %}</title>
-    <meta name="description" content="Ela Admin - HTML5 Admin Template">
+    <title>{% block titulo %}Gestionador - Asernet SPA {% endblock titulo %}</title>
+    <meta name="description" content="Gestionador - Asernet SPA">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="{% static 'images/favicon.png' %}">
@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="{% static 'css/cs-skin-elastic.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
@@ -29,7 +30,8 @@
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
-    {% block extracss %}{% endblock extracss %}
+    {% block extracss %}
+    {% endblock extracss %}
 
    <style>
     #weatherWidget .currentDesc {
@@ -75,15 +77,45 @@
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="">
                         <a href="{% url 'index' %}"><i class="menu-icon fa fa-laptop"></i>Inicio </a>
                     </li>
-                    <li class="menu-title">Cliente</li><!-- /.menu-title -->
+                    <li class="menu-title active" >Cliente</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="{% url 'cliente:listar_cliente' %}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Mis Clientes</a>
+                        <a href="{% url 'cliente:inicio_cliente' %}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Clientes</a>
                         <ul class="sub-menu children dropdown-menu">                            
-                            <li><i class="fa fa-plus"></i><a href="{% url 'cliente:crear_cliente' %}">Añadir Cliente</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="{% url 'cliente:listar_cliente' %}">Listar Clientes</a></li>
+                            <li><i class="fa fa-list"></i><a href="{% url 'cliente:inicio_cliente' %}">Listar Clientes</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="{% url 'solicitud:inicio_solicitud' %}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-file-text"></i>Solicitudes</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                            <li><i class="fa fa-list"></i><a href="{% url 'solicitud:inicio_solicitud' %}">Listar Solicitudes</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="{% url 'credito:inicio_credito' %}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-credit-card-alt"></i>Creditos</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                            <li><i class="fa fa-list"></i><a href="{% url 'credito:inicio_credito' %}">Listar Creditos</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="{% url 'pago:inicio_pago' %}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-money"></i>Pagos</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                            <li><i class="fa fa-list"></i><a href="{% url 'pago:inicio_pago' %}">Listar Pagos</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">Banco</li><!-- /.menu-title -->
+                    <li class="menu-item-has-children dropdown">
+                        <a href="{% url 'banco:inicio_banco' %}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-university"></i>Bancos</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                            <li><i class="fa fa-list"></i><a href="{% url 'banco:inicio_banco' %}">Listar Bancos</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="{% url 'ejecutivo:inicio_ejecutivo' %}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Ejecutivos</a>
+                        <ul class="sub-menu children dropdown-menu">                            
+                            <li><i class="fa fa-list"></i><a href="{% url 'ejecutivo:inicio_ejecutivo' %}">Listar Ejecutivos</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -108,7 +140,7 @@
                         <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
                             <form class="search-form">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Buscar ..." aria-label="Search">
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
@@ -180,17 +212,17 @@
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="{% static 'images/admin.jpg' %}" alt="User Avatar">
+                            <img class="user-avatar rounded-circle" src="{% static 'images/User.png' %}" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Perfil</a>
 
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
 
-                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
+                            <a class="nav-link" href="#"><i class="fa fa -cog"></i>Ajustes</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-power -off"></i>Cerrar Sesión</a>
                         </div>
                     </div>
 
@@ -198,6 +230,21 @@
             </div>
         </header>
         <!-- /#header -->
+        {% block bread %}
+        <div class="breadcrumbs">
+            <div class="breadcrumbs-inner">
+                <div class="row m-0">
+                    <div class="col-sm-4">
+                        <div class="page-header float-left">
+                            <div class="page-title">
+                                <h1>Bienvenido al sistema de gestion: {{ user.username | upper }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock bread %}
         <!-- Content -->
         <div class="content">
             <!-- Animated -->
@@ -695,11 +742,14 @@
     <!-- /#right-panel -->
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
 
     {% block extrajs %}{% endblock extrajs %}
 
@@ -722,6 +772,41 @@
     <script src="{% static 'js/init/fullcalendar-init.js' %}"></script>
 
     <!--Local Stuff-->
+    <script>
+        document.getElementById('boton-volver').addEventListener('click', function() {
+            // Obtiene la URL anterior del objeto document.referrer
+            var urlAnterior = document.referrer;
+        
+            // Redirige al usuario a la URL anterior
+            if (urlAnterior) {
+                window.location.href = urlAnterior;
+            } else {
+                // Si no hay URL anterior, puedes redirigir al usuario a una página predeterminada
+                window.location.href = "{% url 'index' %}"; // Reemplaza '/pagina_predeterminada/' con la URL deseada
+            }
+        });
+    </script> 
+    <script>
+        $(document).ready(function () {
+            // Obtiene la URL actual
+            var currentUrl = window.location.pathname;
+        
+            // Recorre los enlaces del menú
+            $('#main-menu a').each(function() {
+                var linkUrl = $(this).attr('href');
+                
+                // Compara la URL actual con la URL del enlace
+                if (currentUrl === linkUrl) {
+                    // Agrega la clase "active" a la sección seleccionada
+                    $(this).parent().addClass('active');
+                } else {
+                    // Elimina la clase "active" de otras secciones
+                    $(this).parent().removeClass('active');
+                }
+            });
+        });
+    </script>
+
     <script>
         jQuery(document).ready(function($) {
             "use strict";

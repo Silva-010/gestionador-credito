@@ -15,6 +15,7 @@ class Credito(models.Model):
     plazo_en_meses = models.IntegerField()
     fecha_creacion = models.DateField()
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='activo')
+    visibilidad = models.BooleanField('Visibilidad', default= True)
 
     def __str__(self):
         return f"Credito de {self.solicitud_credito.cliente} por {self.monto}"

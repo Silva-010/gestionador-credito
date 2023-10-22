@@ -20,11 +20,12 @@ class SolicitudCredito(models.Model):
 
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     banco = models.ForeignKey(Banco, on_delete=models.CASCADE)
-    monto_solicitado = models.DecimalField(max_digits=10, decimal_places=2)
+    monto_solicitado = models.IntegerField()
     fecha_solicitud = models.DateField()
     estado_solicitud = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='en_espera')
     fecha_aprobacion = models.DateField(blank=True, null=True)
     tipo_credito = models.CharField(max_length=20, choices=TIPO_CREDITO_CHOICES, default='credito_personal')
+    visibilidad = models.BooleanField('Visibilidad', default= True)
 
     def __str__(self):
         return f"Solicitud de {self.cliente} a {self.banco}"

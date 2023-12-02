@@ -10,12 +10,17 @@ function listadoSolicitudes(){
             $('#bootstrap-data-table tbody').html("");
             for(let i = 0;i < response.length;i++){
                 let fila = '<tr>';
+                fila += '<td>' + (i + 1) + '</td>';
                 fila += '<td>' + response[i]["fields"]['cliente'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['banco'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['monto_solicitado'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['fecha_solicitud'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['estado_solicitud'] + '</td>';
-                fila += '<td>' + response[i]["fields"]['fecha_aprobacion'] + '</td>';
+                if (response[i]["fields"]['fecha_aprobacion'] === 'Null') {
+                    fila += '<td>No Aprobado</td>';
+                } else {
+                    fila += '<td>' + response[i]["fields"]['fecha_aprobacion'] + '</td>';
+                }
                 fila += '<td>' + response[i]["fields"]['tipo_credito'] + '</td>';
                 fila += '<td> <button type = "button" class = "btn btn-primary btn-sm tableButton"';
                 fila += 'onclick = "abrir_modal_edicion(\'/solicitud/editar_solicitud/'+response[i]['pk']+'/\')"><i class="fa fa-pencil"> Editar</i></button>';

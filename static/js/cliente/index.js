@@ -10,6 +10,7 @@ function listadoClientes(){
             $('#bootstrap-data-table tbody').html("");
             for(let i = 0;i < response.length;i++){
                 let fila = '<tr>';
+                fila += '<td>' + (i + 1) + '</td>';
                 fila += '<td>' + response[i]["fields"]['rut'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['nombres'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['apellido_paterno'] + '</td>';
@@ -45,6 +46,7 @@ function listadoClientes(){
                       previous: "Anterior",
                     },
                 },
+                order: [[6, 'asc']],
             }); 
         },
         error: function(error){

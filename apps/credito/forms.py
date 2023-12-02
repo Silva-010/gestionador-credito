@@ -15,47 +15,48 @@ class CreditoForm(forms.ModelForm):
             'estado' : 'Estado',
         }
         widgets = {
-            'solicitud_credito' : forms.Select(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Seleccione la solicitud del credito',
-                    'id' : 'solicitud-credito',
-                } 
+            'solicitud_credito': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Seleccione la solicitud del credito',
+                    'id': 'solicitud-credito',
+                    'onchange': 'actualizar_monto()',
+                }
             ),
-            'monto' : forms.NumberInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Ingrese el monto del credito',
-                    'id' : 'monto',
-                } 
+            'monto': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese el monto del credito',
+                    'id': 'monto',
+                }
             ),
-            'tasa_de_interes' : forms.NumberInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Ingrese la tasa de interes del credito',
-                    'id' : 'tasa_de_interes',
-                } 
+            'tasa_de_interes': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese la tasa de interes del credito',
+                    'id': 'tasa_de_interes',
+                }
             ),
-            'plazo_en_meses' : forms.NumberInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Ingrese el plazo del credito',
-                    'id' : 'plazo_en_meses',
-                } 
+            'plazo_en_meses': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese el plazo del credito',
+                    'id': 'plazo_en_meses',
+                }
             ),
-            'fecha_creacion' : forms.DateInput(
-                attrs = {
-                    'class' : 'form-control',
-                    'type' : 'date',
-                    'placeholder' : 'Seleccione la fecha de creacion del credito',
-                    'id' : 'fecha_creacion',
-                } 
+            'fecha_creacion': forms.DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'date',
+                    'placeholder': 'Seleccione la fecha de creacion del credito',
+                    'id': 'fecha_creacion',
+                }
             ),
-            'estado' : forms.Select(
-                attrs = {
-                    'class' : 'form-control',
-                    'placeholder' : 'Seleccione seleccione el estado del credito',
-                    'id' : 'estado-credito',
-                } 
+            'estado': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Seleccione seleccione el estado del credito',
+                    'id': 'estado-credito',
+                }
             ),
         }

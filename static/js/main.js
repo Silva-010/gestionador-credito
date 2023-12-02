@@ -1,6 +1,7 @@
 var $ = jQuery.noConflict();
 
 jQuery(document).ready(function($) {
+	
 
 	"use strict";
 
@@ -166,3 +167,5 @@ function notificacionSuccess(mensaje){
 		icon: 'success'
 	})
 }
+
+

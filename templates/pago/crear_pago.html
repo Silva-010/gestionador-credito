@@ -12,7 +12,38 @@
                 <div id="errores">
 
                 </div>
-                {{ form.as_p }}
+                <div class="row form-group">
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.credito.label }}
+                            {{ form.credito }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.monto_pagado.label }}
+                            {{ form.monto_pagado }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.fecha_pago.label }}
+                            {{ form.fecha_pago }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.estado_pago.label }}
+                            {{ form.estado_pago }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.tipo_pago.label }}
+                            {{ form.tipo_pago }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="boton_creacion" class="btn btn-primary" type="button" onclick="registrar(listadoPagos());">Confirmar</button>

@@ -1,7 +1,8 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Edición de solicitud: {{ object }}</h2>
+            <h3 class="modal-title">Edición de solicitud: </h3>
+            <h5>{{ object }}</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -12,7 +13,50 @@
                 <div id="erroresEdicion">
 
                 </div>
-                {{ form.as_p }}
+                <div class="row form-group">
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.banco.label }}
+                            {{ form.banco }}
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.cliente.label }}
+                            {{ form.cliente }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.monto_solicitado.label }}
+                            {{ form.monto_solicitado }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.estado_solicitud.label }}
+                            {{ form.estado_solicitud }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.fecha_solicitud.label }}
+                            <input type="date" class="form-control" id="fecha_solicitud" name="fecha_solicitud" value="{{ form.fecha_solicitud.value|date:'Y-m-d' }}">
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.fecha_aprobacion.label }}
+                            <input type="date" class="form-control" id="fecha_aprobacion" name="fecha_aprobacion" value="{{ form.fecha_aprobacion.value|date:'Y-m-d' }}">
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.tipo_credito.label }}
+                            {{ form.tipo_credito }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="boton_creacion" class="btn btn-primary" type="button" onclick="editar(listadoSolicitudes());">Confirmar</button>

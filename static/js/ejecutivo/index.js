@@ -10,6 +10,8 @@ function listadoEjecutivos(){
             $('#bootstrap-data-table tbody').html("");
             for(let i = 0;i < response.length;i++){
                 let fila = '<tr>';
+                console.log(response[i])
+                fila += '<td>' + (i + 1) + '</td>';
                 fila += '<td>' + response[i]["fields"]['id_banco'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['nombre'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['apellido_paterno'] + '</td>';

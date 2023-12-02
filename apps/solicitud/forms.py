@@ -15,6 +15,7 @@ class SolicitudForm(forms.ModelForm):
             'fecha_aprobacion' : 'Fecha Aprovación',
             'tipo_credito' : 'Tipo Credito',
         }
+        input_formats=['%d-%m-%Y']
         widgets = {
             'cliente' : forms.Select(
                 attrs = {
@@ -43,7 +44,8 @@ class SolicitudForm(forms.ModelForm):
                     'type' : 'date',
                     'placeholder' : 'Seleccione fecha de la solicitud',
                     'id' : 'fecha_solicitud',
-                } 
+                },
+                format='%d-%m-%Y',
             ),
             'estado_solicitud' : forms.Select(
                 attrs = {

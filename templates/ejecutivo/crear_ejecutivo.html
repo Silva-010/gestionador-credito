@@ -12,7 +12,44 @@
                 <div id="errores">
 
                 </div>
-                {{ form.as_p }}
+                <div class="row form-group">
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.id_banco.label }}
+                            {{ form.id_banco }}
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.nombre.label }}
+                            {{ form.nombre }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.apellido_paterno.label }}
+                            {{ form.apellido_paterno }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.apellido_materno.label }}
+                            {{ form.apellido_materno }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.email.label }}
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.telefono.label }}
+                            {{ form.telefono }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="boton_creacion" class="btn btn-primary" type="button" onclick="registrar(listadoEjecutivos());">Confirmar</button>

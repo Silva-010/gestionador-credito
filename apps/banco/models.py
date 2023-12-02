@@ -6,6 +6,9 @@ class Banco(models.Model):
     telefono = models.CharField(max_length=20, blank=True, null=True)
     visibilidad = models.BooleanField('Visibilidad', default= True)
 
+    def natural_key(self):
+        return (self.nombre)
+
     def __str__(self):
         return self.nombre
     

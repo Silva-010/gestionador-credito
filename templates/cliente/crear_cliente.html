@@ -6,13 +6,56 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form id="form_creacion" method="POST" action="{% url 'cliente:crear_cliente' %}">
+        <form id="form_creacion" method="POST" action="{% url 'cliente:crear_cliente' %}" class="form-horizontal">
             {% csrf_token %}
             <div class="modal-body">
                 <div id="errores">
 
                 </div>
-                {{ form.as_p }}
+                <div class="row form-group">
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.rut.label }}
+                            {{ form.rut }}
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.nombres.label }}
+                            {{ form.nombres }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.apellido_paterno.label }}
+                            {{ form.apellido_paterno }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.apellido_materno.label }}
+                            {{ form.apellido_materno }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.email.label }}
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.telefono.label }}
+                            {{ form.telefono }}
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.direccion.label }}
+                            {{ form.direccion }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="boton_creacion" class="btn btn-primary" type="button" onclick="registrar(listadoClientes());">Confirmar</button>

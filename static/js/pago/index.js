@@ -10,6 +10,7 @@ function listadoPagos(){
             $('#bootstrap-data-table tbody').html("");
             for(let i = 0;i < response.length;i++){
                 let fila = '<tr>';
+                fila += '<td>' + (i + 1) + '</td>';
                 fila += '<td>' + response[i]["fields"]['credito'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['monto_pagado'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['fecha_pago'] + '</td>';

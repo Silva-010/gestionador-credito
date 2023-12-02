@@ -1,14 +1,10 @@
 from django.shortcuts import redirect
 from django.core.serializers import serialize
-from django.views.generic import TemplateView, ListView, UpdateView, CreateView, DeleteView
+from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.http import HttpResponse, JsonResponse
 from .forms import ClienteForm
 from .models import Cliente
-
-# Create your views here.
-
-class Inicio(TemplateView):
-    template_name = 'index.html' 
+from apps.notificaciones.models import Notificacion
 
 class ListadoCliente(ListView):
     model = Cliente 
@@ -42,6 +38,10 @@ class CrearCliente(CreateView):
                     direccion=form.cleaned_data.get('direccion'),
                 )
                 nuevo_cliente.save()
+                Notificacion.objects.create(
+                    mensaje=f'{self.model.__name__} registrado correctamente',
+                    detalles=f'{self.model.__name__} {nuevo_cliente.nombres} {nuevo_cliente.apellido_paterno} registrado correctamente.'
+                )
                 mensaje = f'{self.model.__name__} registrado correctamente' 
                 error = 'No hay error!'
                 response = JsonResponse({'mensaje':mensaje , 'error':error})
@@ -68,6 +68,11 @@ class ActualizarCliente(UpdateView):
             form = self.form_class(request.POST, instance = self.get_object())
             if form.is_valid():
                 form.save()
+                # Crear notificación
+                Notificacion.objects.create(
+                    mensaje=f'{self.model.__name__} actualizado correctamente',
+                    detalles=f'{self.model.__name__} {form.cleaned_data.get("nombres")} {form.cleaned_data.get("apellido_paterno")} actualizado correctamente.'
+                )
                 mensaje = f'{self.model.__name__} actualizado correctamente' 
                 error = 'No hay error!'
                 response = JsonResponse({'mensaje':mensaje , 'error':error})
@@ -96,6 +101,11 @@ class EliminarCliente(DeleteView):
             cliente = self.get_object()
             cliente.visibilidad = False
             cliente.save()
+            # Crear notificación
+            Notificacion.objects.create(
+                mensaje=f'{self.model.__name__} eliminado correctamente',
+                detalles=f'{self.model.__name__} {cliente.nombres} {cliente.apellido_paterno} eliminado correctamente.'
+            )
             mensaje = f'{self.model.__name__} eliminado correctamente' 
             error = 'No hay error!'
             response = JsonResponse({'mensaje':mensaje , 'error':error})

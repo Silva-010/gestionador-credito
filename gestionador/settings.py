@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'apps.pago',
     'apps.solicitud',
     'apps.usuario',
+    'apps.notificaciones',
 ]
 
 MIDDLEWARE = [
@@ -119,15 +120,17 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-cl'
 
-TIME_ZONE = 'GMT'
+DATE_INPUT_FORMATS = ('%d-%m-%Y','%Y-%m-%d')
+
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 
 USE_TZ = True
 
-DATE_FORMAT = ['%d-%m-%Y']
+USE_L10N = False
 
-DATE_INPUT_FORMATS = ['%d-%m-%Y']
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

@@ -2,7 +2,7 @@ from django.db import models
 from apps.banco.models import Banco
 
 class Ejecutivo(models.Model):
-    id_banco = models.ForeignKey(Banco, on_delete=models.CASCADE)
+    id_banco = models.ForeignKey(Banco, on_delete=models.CASCADE, limit_choices_to={'visibilidad': True})
     nombre = models.CharField(max_length=100)
     apellido_paterno = models.CharField(max_length=100)
     apellido_materno = models.CharField(max_length=100)
@@ -16,4 +16,4 @@ class Ejecutivo(models.Model):
     class Meta:
         verbose_name = 'Ejecutivo'
         verbose_name_plural = 'Ejecutivos'
-        ordering = ['id_banco']
+        ordering = ['id_banco', 'nombre', 'apellido_paterno', 'apellido_materno']

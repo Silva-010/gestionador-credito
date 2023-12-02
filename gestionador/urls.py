@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, logout_then_login
-from apps.cliente.views import Inicio
 from apps.usuario.views import Login, logoutUser
+from gestionador.views import Inicio
 
 urlpatterns = [
     path('admin/', admin.site.urls),

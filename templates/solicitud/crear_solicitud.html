@@ -12,7 +12,50 @@
                 <div id="errores">
 
                 </div>
-                {{ form.as_p }}
+                <div class="row form-group">
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.banco.label }}
+                            {{ form.banco }}
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.cliente.label }}
+                            {{ form.cliente }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.monto_solicitado.label }}
+                            {{ form.monto_solicitado }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.estado_solicitud.label }}
+                            {{ form.estado_solicitud }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.fecha_solicitud.label }}
+                            {{ form.fecha_solicitud }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.fecha_aprobacion.label }}
+                            {{ form.fecha_aprobacion }}
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.tipo_credito.label }}
+                            {{ form.tipo_credito }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="boton_creacion" class="btn btn-primary" type="button" onclick="registrar(listadoSolicitudes());">Confirmar</button>

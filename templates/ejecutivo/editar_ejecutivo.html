@@ -1,7 +1,8 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Edición de ejecutivo: {{ object }}</h2>
+            <h3 class="modal-title">Edición de ejecutivo: </h3>
+            <h5>{{ object }}</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -12,7 +13,44 @@
                 <div id="erroresEdicion">
 
                 </div>
-                {{ form.as_p }}
+                <div class="row form-group">
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.id_banco.label }}
+                            {{ form.id_banco }}
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.nombre.label }}
+                            {{ form.nombre }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.apellido_paterno.label }}
+                            {{ form.apellido_paterno }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.apellido_materno.label }}
+                            {{ form.apellido_materno }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.email.label }}
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.telefono.label }}
+                            {{ form.telefono }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="boton_creacion" class="btn btn-primary" type="button" onclick="editar(listadoEjecutivos());">Confirmar</button>

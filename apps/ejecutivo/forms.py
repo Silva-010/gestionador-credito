@@ -1,5 +1,6 @@
 from django import forms
 from .models import Ejecutivo
+from .validations import formatear_telefono_chileno, validar_telefono_chileno
 
 class EjecutivoForm(forms.ModelForm):
     class Meta:
@@ -52,8 +53,24 @@ class EjecutivoForm(forms.ModelForm):
             'telefono' : forms.NumberInput(
                 attrs = {
                     'class' : 'form-control',
-                    'placeholder' : 'Ingrese el telefono del ejecutivo',
+                    'type' : 'tel',
+                    'placeholder' : '+569 9999 9999',
                     'id' : 'telefono',
                 } 
             ),
         }
+
+    def clean_telefono(self):
+        telefono = self.cleaned_data.get('telefono')
+
+        # Valida el número de teléfono
+        if not validar_telefono_chileno(telefono):
+            raise forms.ValidationError("El número de teléfono no es válido. Por favor, recuerde ingresar el codigo regional +569")
+
+        # Formatea el número de teléfono
+        telefono_formateado = formatear_telefono_chileno(telefono)
+
+        # Actualiza el valor del campo "telefono" en los datos limpios (cleaned_data)
+        self.cleaned_data['telefono'] = telefono_formateado
+
+        return telefono_formateado

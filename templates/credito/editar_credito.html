@@ -1,7 +1,8 @@
 <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 class="modal-title">Edición de credito: {{ object }}</h2>
+            <h3 class="modal-title">Edición de credito: </h3>
+            <h5>{{ object }}</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -12,7 +13,44 @@
                 <div id="erroresEdicion">
 
                 </div>
-                {{ form.as_p }}
+                <div class="row form-group">
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.solicitud_credito.label }}
+                            {{ form.solicitud_credito }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.monto.label }}
+                            {{ form.monto }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.tasa_de_interes.label }}
+                            {{ form.tasa_de_interes }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.plazo_en_meses.label }}
+                            {{ form.plazo_en_meses }}
+                        </div>
+                    </div>
+                    <div class="col col-md-6">
+                        <div class="form-group">
+                            {{ form.fecha_creacion.label }}
+                            <input type="date" class="form-control" id="fecha_creacion" name="fecha_creacion" value="{{ form.fecha_creacion.value|date:'Y-m-d' }}">
+                        </div>
+                    </div>
+                    <div class="col col-md-12">
+                        <div class="form-group">
+                            {{ form.estado.label }}
+                            {{ form.estado }}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button id="boton_creacion" class="btn btn-primary" type="button" onclick="editar(listadoCreditos());">Confirmar</button>

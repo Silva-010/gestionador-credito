@@ -3,7 +3,8 @@ from django.core.serializers import serialize
 from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.http import HttpResponse, JsonResponse
 from .forms import EjecutivoForm
-from .models import Ejecutivo, Banco
+from .models import Ejecutivo
+from apps.notificaciones.models import Notificacion
 
 # Create your views here.
 
@@ -15,7 +16,7 @@ class ListadoEjecutivo(ListView):
     
     def get(self, request, *args, **kwargs):
         if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-            return HttpResponse(serialize('json', self.get_queryset()), 'application/json')
+            return HttpResponse(serialize('json', self.get_queryset(), use_natural_foreign_keys = True), 'application/json')
         else:
             return redirect('ejecutivo:inicio_ejecutivo')
         
@@ -38,6 +39,10 @@ class CrearEjecutivo(CreateView):
                     telefono=form.cleaned_data.get('telefono'),
                 )
                 nuevo_ejecutivo.save()
+                Notificacion.objects.create(
+                    mensaje=f'{self.model.__name__} registrado correctamente',
+                    detalles=f'{self.model.__name__} {nuevo_ejecutivo.nombre} {nuevo_ejecutivo.apellido_paterno} registrado correctamente.'
+                )
                 mensaje = f'{self.model.__name__} registrado correctamente' 
                 error = 'No hay error!'
                 response = JsonResponse({'mensaje':mensaje , 'error':error})
@@ -62,6 +67,11 @@ class ActualizarEjecutivo(UpdateView):
             form = self.form_class(request.POST, instance = self.get_object())
             if form.is_valid():
                 form.save()
+                # Crear notificación
+                Notificacion.objects.create(
+                    mensaje=f'{self.model.__name__} actualizado correctamente',
+                    detalles=f'{self.model.__name__} {form.cleaned_data.get("nombre")} {form.cleaned_data.get("apellido_paterno")} actualizado correctamente.'
+                )
                 mensaje = f'{self.model.__name__} actualizado correctamente' 
                 error = 'No hay error!'
                 response = JsonResponse({'mensaje':mensaje , 'error':error})
@@ -87,9 +97,14 @@ class EliminarEjecutivo(DeleteView):
 
     def post(self, request, *args, **kwargs):
         if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':   
-            cliente = self.get_object()
-            cliente.visibilidad = False
-            cliente.save()
+            ejecutivo = self.get_object()
+            ejecutivo.visibilidad = False
+            ejecutivo.save()
+            # Crear notificación
+            Notificacion.objects.create(
+                mensaje=f'{self.model.__name__} eliminado correctamente',
+                detalles=f'{self.model.__name__} {ejecutivo.nombre} {ejecutivo.apellido_paterno} eliminado correctamente.'
+            )
             mensaje = f'{self.model.__name__} eliminado correctamente' 
             error = 'No hay error!'
             response = JsonResponse({'mensaje':mensaje , 'error':error})

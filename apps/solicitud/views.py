@@ -4,6 +4,7 @@ from django.views.generic import ListView, UpdateView, CreateView, DeleteView
 from django.http import HttpResponse, JsonResponse
 from .forms import SolicitudForm
 from .models import SolicitudCredito
+from apps.notificaciones.models import Notificacion
 
 # Create your views here.
 
@@ -15,7 +16,7 @@ class ListadoSolicitud(ListView):
     
     def get(self, request, *args, **kwargs):
         if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-            return HttpResponse(serialize('json', self.get_queryset()), 'application/json')
+            return HttpResponse(serialize('json', self.get_queryset(), use_natural_foreign_keys = True), 'application/json')
         else:
             return redirect('solicitud:inicio_solicitud')
         
@@ -39,6 +40,10 @@ class CrearSolicitud(CreateView):
                     tipo_credito=form.cleaned_data.get('tipo_credito'),
                 )
                 nuevo_solicitud.save()
+                Notificacion.objects.create(
+                    mensaje=f'{self.model.__name__} registrado correctamente',
+                    detalles=f'{self.model.__name__} {nuevo_solicitud.cliente} registrado correctamente.'
+                )
                 mensaje = f'{self.model.__name__} registrado correctamente' 
                 error = 'No hay error!'
                 response = JsonResponse({'mensaje':mensaje , 'error':error})
@@ -63,6 +68,11 @@ class ActualizarSolicitud(UpdateView):
             form = self.form_class(request.POST, instance = self.get_object())
             if form.is_valid():
                 form.save()
+                # Crear notificación
+                Notificacion.objects.create(
+                    mensaje=f'{self.model.__name__} actualizado correctamente',
+                    detalles=f'{self.model.__name__} {form.cleaned_data.get("cliente")} actualizado correctamente.'
+                )
                 mensaje = f'{self.model.__name__} actualizado correctamente' 
                 error = 'No hay error!'
                 response = JsonResponse({'mensaje':mensaje , 'error':error})
@@ -88,9 +98,14 @@ class EliminarSolicitud(DeleteView):
 
     def post(self, request, *args, **kwargs):
         if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':   
-            cliente = self.get_object()
-            cliente.visibilidad = False
-            cliente.save()
+            solicitud = self.get_object()
+            solicitud.visibilidad = False
+            solicitud.save()
+            # Crear notificación
+            Notificacion.objects.create(
+                mensaje=f'{self.model.__name__} eliminado correctamente',
+                detalles=f'{self.model.__name__} {solicitud.cliente} eliminado correctamente.'
+            )
             mensaje = f'{self.model.__name__} eliminado correctamente' 
             error = 'No hay error!'
             response = JsonResponse({'mensaje':mensaje , 'error':error})

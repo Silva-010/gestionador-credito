@@ -1,8 +1,9 @@
 from django import forms
 from .models import Cliente
-from .validador_rut import validar_rut_chileno, formatear_rut
+from .validations import validar_rut_chileno, formatear_rut, validar_telefono_chileno, formatear_telefono_chileno
 
 class ClienteForm(forms.ModelForm):
+    
     class Meta:
         model = Cliente
         fields = ['rut' , 'nombres' , 'apellido_paterno' , 'apellido_materno' , 'email' , 'telefono' , 'direccion']
@@ -11,61 +12,68 @@ class ClienteForm(forms.ModelForm):
             'nombres' : 'Nombres',
             'apellido_paterno' : 'Apellido Paterno',
             'apellido_materno' : 'Apellido Materno',
-            'email' : 'Correo Electronico',
-            'telefono' : 'Numero de telefono',
-            'direccion' : 'Direccion de vivienda'
+            'email' : 'Correo Electrónico',
+            'telefono' : 'Número de teléfono',
+            'direccion' : 'Dirección de vivienda'
         }
         widgets = {
             'rut' : forms.TextInput(
                 attrs = {
                     'class' : 'form-control',
-                    'placeholder' : 'Ingrese el RUT del cliente',
+                    'placeholder' : '11.111.111-1',
                     'id' : 'rut',
                 } 
             ),
             'nombres' : forms.TextInput(
                 attrs = {
                     'class' : 'form-control',
-                    'placeholder' : 'Ingrese nombres del cliente',
+                    'placeholder' : 'Juan',
                     'id' : 'nombres',
                 } 
             ),
             'apellido_paterno' : forms.TextInput(
                 attrs = {
                     'class' : 'form-control',
-                    'placeholder' : 'Ingrese apellido paterno del cliente',
+                    'placeholder' : 'Perez',
                     'id' : 'apellido_paterno',
                 } 
             ),
             'apellido_materno' : forms.TextInput(
                 attrs = {
                     'class' : 'form-control',
-                    'placeholder' : 'Ingrese apellido materno del cliente',
+                    'placeholder' : 'Perez',
                     'id' : 'apellido_materno',
                 } 
             ),
             'email' : forms.EmailInput(
                 attrs = {
                     'class' : 'form-control',
-                    'placeholder' : 'Ingrese el correo electronico del cliente',
+                    'placeholder' : 'correo@tudominio.cl',
                     'id' : 'email',
                 } 
             ),
             'telefono' : forms.NumberInput(
                 attrs = {
                     'class' : 'form-control',
-                    'placeholder' : 'Ingrese el telefono del cliente',
+                    'type' : 'tel',
+                    'placeholder' : '+569 9999 9999',
                     'id' : 'telefono',
                 } 
             ),
             'direccion' : forms.TextInput(
                 attrs = {
                     'class' : 'form-control',
-                    'placeholder' : 'Ingrese la direccion del cliente',
+                    'placeholder' : 'Calle La Moneda 123',
                     'id' : 'direccion',
                 } 
             ),
         }
+
+    error_messages = {
+        'nombres': {
+            'required': 'El nombre es obligatorio.',
+        },
+    }
         
     def clean_rut(self):
         rut = self.cleaned_data.get('rut')
@@ -81,3 +89,18 @@ class ClienteForm(forms.ModelForm):
         self.cleaned_data['rut'] = rut_formateado
 
         return rut_formateado
+    
+    def clean_telefono(self):
+        telefono = self.cleaned_data.get('telefono')
+
+        # Valida el número de teléfono
+        if not validar_telefono_chileno(telefono):
+            raise forms.ValidationError("El número de teléfono no es válido. Por favor, recuerde ingresar el codigo regional +569")
+
+        # Formatea el número de teléfono
+        telefono_formateado = formatear_telefono_chileno(telefono)
+
+        # Actualiza el valor del campo "telefono" en los datos limpios (cleaned_data)
+        self.cleaned_data['telefono'] = telefono_formateado
+
+        return telefono_formateado

@@ -10,6 +10,7 @@ function listadoCreditos(){
             $('#bootstrap-data-table tbody').html("");
             for(let i = 0;i < response.length;i++){
                 let fila = '<tr>';
+                fila += '<td>' + (i + 1) + '</td>';
                 fila += '<td>' + response[i]["fields"]['solicitud_credito'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['monto'] + '</td>';
                 fila += '<td>' + response[i]["fields"]['tasa_de_interes'] + '</td>';

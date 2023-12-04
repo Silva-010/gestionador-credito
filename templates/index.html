@@ -284,18 +284,6 @@
                                                 aria-valuemax="{{ recuento_solicitudes_activas }}"></div>
                                             </div>
                                         </div>
-                                        <div class="progress-box progress-2">
-                                            <h4 class="por-title">Otros</h4>
-                                            <div class="por-txt">{{ recuento_solicitudes_otros }} Solicitudes</div>
-                                            <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-4" 
-                                                role="progressbar" 
-                                                style="width: {{ recuento_solicitudes_otros }}%;" 
-                                                aria-valuenow="{{ recuento_solicitudes_otros }}" 
-                                                aria-valuemin="0" 
-                                                aria-valuemax="{{ recuento_solicitudes_activas }}"></div>
-                                            </div>
-                                        </div>
                                     </div> <!-- /.card-body -->
                                 </div>
                             </div> <!-- /.row -->
@@ -464,15 +452,15 @@
                         // Agrega más montos según tus necesidades
                     ],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)'
+                        'rgba(0, 194, 145, 0.5)',
+                        'rgba(170, 139, 228, 0.5)',
+                        'rgba(2, 166, 242, 0.5)'
                         // Agrega más colores según tus necesidades
                     ],
                     borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
+                        'rgba(0, 194, 145, 1)',
+                        'rgba(170, 139, 228, 1)',
+                        'rgba(2, 166, 242, 1)'
                         // Agrega más colores según tus necesidades
                     ],
                     borderWidth: 1
@@ -509,14 +497,14 @@
                         {{ porcentaje_creditos_vencidos }}
                     ],
                     backgroundColor: [
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(255, 206, 86, 0.5)'
+                        'rgba(0, 194, 145, 0.5)',
+                        'rgba(170, 139, 228, 0.5)',
+                        'rgba(2, 166, 242, 0.5)'
                     ],
                     borderColor: [
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(255, 206, 86, 1)'
+                        'rgba(0, 194, 145, 1)',
+                        'rgba(170, 139, 228, 1)',
+                        'rgba(2, 166, 242, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -551,26 +539,23 @@
 
     <script>
         var data = {
-            labels: ["En Espera", "Aprobadas", "Rechazadas", "Otros"],
+            labels: ["Aprobadas", "Rechazadas", "En Espera"],
             datasets: [{
                 label: 'Solicitudes por estado',
                 data: [
-                    {{ recuento_solicitudes_espera }},
                     {{ recuento_solicitudes_aprobadas }},
-                    {{ recuento_solicitudes_rechazadas }},
-                    {{ recuento_solicitudes_otros }}
+                    {{ recuento_solicitudes_espera }},
+                    {{ recuento_solicitudes_rechazadas }}
                 ],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(255, 206, 86, 0.5)',
-                    'rgba(75, 192, 192, 0.5)'
+                    'rgba(0, 194, 145, 0.5)',
+                    'rgba(170, 139, 228, 0.5)',
+                    'rgba(2, 166, 242, 0.5)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
+                    'rgba(0, 194, 145, 1)',
+                    'rgba(170, 139, 228, 1)',
+                    'rgba(2, 166, 242, 1)',
                 ],
                 borderWidth: 1
             }]

@@ -22,7 +22,7 @@ class SolicitudCredito(models.Model):
 
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, limit_choices_to={'visibilidad': True})
     banco = models.ForeignKey(Banco, on_delete=models.CASCADE, limit_choices_to={'visibilidad': True})
-    monto_solicitado = models.IntegerField()
+    monto_solicitado = models.CharField()
     fecha_solicitud = models.DateField()
     estado_solicitud = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='en_espera')
     fecha_aprobacion = models.DateField(blank=True, null=True)
@@ -46,4 +46,4 @@ def actualizar_fecha_aprobacion(sender, instance, **kwargs):
     if instance.estado_solicitud == 'aprobado':
         instance.fecha_aprobacion = timezone.now()
     else:
-        instance.fecha_aprobacion = '0000-00-00'
+        instance.fecha_aprobacion = None

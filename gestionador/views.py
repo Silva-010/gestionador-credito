@@ -1,12 +1,13 @@
 from django.core.paginator import Paginator
 from django.views.generic import TemplateView
 from apps.cliente.models import Cliente
+from apps.solicitud import models
+from django.db.models.functions import Cast
 from apps.solicitud.models import SolicitudCredito
 from apps.credito.models import Credito
 from apps.pago.models import Pago
 from apps.notificaciones.models import Notificacion
-from django.db.models import Count, Sum
-from django.db.models.functions import TruncDate
+from django.db.models import Count, Sum, IntegerField, CharField, Func
 
 class Inicio(TemplateView):
     template_name = 'index.html'
@@ -35,10 +36,18 @@ class Inicio(TemplateView):
         context['porcentaje_creditos_pagados'] = round(porcentaje_pagados, 2)
         context['porcentaje_creditos_vencidos'] = round(porcentaje_vencidos, 2)
         
-        #MontosSolicitados
-        context['monto_solicitado_consumo'] = SolicitudCredito.objects.filter(visibilidad=True, tipo_credito='consumo').aggregate(Sum('monto_solicitado'))['monto_solicitado__sum'] or 0
-        context['monto_solicitado_hipotecario'] = SolicitudCredito.objects.filter(visibilidad=True, tipo_credito='hipotecario').aggregate(Sum('monto_solicitado'))['monto_solicitado__sum'] or 0
-        context['monto_solicitado_automotriz'] = SolicitudCredito.objects.filter(visibilidad=True, tipo_credito='automotriz').aggregate(Sum('monto_solicitado'))['monto_solicitado__sum'] or 0
+       # MontosSolicitados
+        context['monto_solicitado_consumo'] = SolicitudCredito.objects.filter(visibilidad=True, tipo_credito='consumo') \
+            .annotate(monto_solicitado_int=Cast(LimpiarMonto('monto_solicitado'), IntegerField())) \
+            .aggregate(Sum('monto_solicitado_int'))['monto_solicitado_int__sum'] or 0
+
+        context['monto_solicitado_hipotecario'] = SolicitudCredito.objects.filter(visibilidad=True, tipo_credito='hipotecario') \
+            .annotate(monto_solicitado_int=Cast(LimpiarMonto('monto_solicitado'), IntegerField())) \
+            .aggregate(Sum('monto_solicitado_int'))['monto_solicitado_int__sum'] or 0
+
+        context['monto_solicitado_automotriz'] = SolicitudCredito.objects.filter(visibilidad=True, tipo_credito='automotriz') \
+            .annotate(monto_solicitado_int=Cast(LimpiarMonto('monto_solicitado'), IntegerField())) \
+            .aggregate(Sum('monto_solicitado_int'))['monto_solicitado_int__sum'] or 0
 
         # Notificaciones
         context['notificaciones'] = Notificacion.objects.all().order_by('-fecha_creacion')[:5]
@@ -57,6 +66,11 @@ class Inicio(TemplateView):
         
         return context
     
+class LimpiarMonto(Func):
+    function = 'regexp_replace'
+    template = "%(function)s(%(expressions)s, '[^0-9]', '', 'g')"
+    output_field = CharField()
+
 def obtener_notificaciones():
     # Puedes ajustar esta lógica según tus necesidades
     # Aquí asumiré que tienes un modelo Notificacion con un campo mensaje

@@ -1,4 +1,5 @@
 from django import forms
+from .utils import formatear_monto
 from .models import Credito
 
 class CreditoForm(forms.ModelForm):
@@ -23,7 +24,7 @@ class CreditoForm(forms.ModelForm):
                     'onchange': 'actualizar_monto()',
                 }
             ),
-            'monto': forms.NumberInput(
+            'monto': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese el monto del credito',
@@ -60,3 +61,12 @@ class CreditoForm(forms.ModelForm):
                 }
             ),
         }
+
+    def clean_monto(self):
+        monto = self.cleaned_data.get('monto')
+
+        monto_formateado = formatear_monto(monto)
+
+        self.cleaned_data['monto'] = monto_formateado
+
+        return monto_formateado

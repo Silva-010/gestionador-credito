@@ -1,4 +1,5 @@
 from django import forms
+from .utils import formatear_monto
 from .models import SolicitudCredito
 
 class SolicitudForm(forms.ModelForm):
@@ -31,7 +32,7 @@ class SolicitudForm(forms.ModelForm):
                     'id' : 'banco-solicitud',
                 } 
             ),
-            'monto_solicitado' : forms.NumberInput(
+            'monto_solicitado' : forms.TextInput(
                 attrs = {
                     'class' : 'form-control',
                     'placeholder' : 'Ingrese el monto solicitado',
@@ -70,3 +71,12 @@ class SolicitudForm(forms.ModelForm):
                 } 
             ),
         }
+
+    def clean_monto_solicitado(self):
+        monto_solicitado = self.cleaned_data.get('monto_solicitado')
+
+        monto_solicitado_formateado = formatear_monto(monto_solicitado)
+
+        self.cleaned_data['monto_solicitado'] = monto_solicitado_formateado
+
+        return monto_solicitado_formateado

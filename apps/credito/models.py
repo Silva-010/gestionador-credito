@@ -10,7 +10,7 @@ class Credito(models.Model):
     )
 
     solicitud_credito = models.OneToOneField(SolicitudCredito, on_delete=models.CASCADE, limit_choices_to={'visibilidad': True, 'estado_solicitud': 'aprobado'})  # Agregar esta línea)
-    monto = models.IntegerField()
+    monto = models.CharField()
     tasa_de_interes = models.DecimalField(max_digits=5, decimal_places=2)
     plazo_en_meses = models.IntegerField()
     fecha_creacion = models.DateField()

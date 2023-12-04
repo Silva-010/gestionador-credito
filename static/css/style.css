@@ -20,16 +20,16 @@ Googel Fonts  */
 */
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 .bg-flat-color-1 {
-  background: #00c292; }
+  background: rgb(0, 194, 145)0%, 38% }
 
 .bg-flat-color-2 {
-  background: #ab8ce4; }
+  background: rgb(170, 139, 228)62%, 72%; }
 
 .bg-flat-color-3 {
-  background: #03a9f3; }
+  background: rgb(2, 166, 242)}
 
 .bg-flat-color-4 {
-  background: #fb9678; }
+  background: rgb(251, 152, 121)0%, 73%; }
 
 .bg-flat-color-5 {
   background: #66bb6a; }

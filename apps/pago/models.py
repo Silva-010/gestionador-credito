@@ -1,4 +1,5 @@
 from django.db import models
+from .utils import formatear_monto
 from apps.credito.models import Credito
 
 class Pago(models.Model):
@@ -16,7 +17,7 @@ class Pago(models.Model):
     )
 
     credito = models.ForeignKey(Credito, on_delete=models.CASCADE, limit_choices_to={'visibilidad': True})
-    monto_pagado = models.IntegerField()
+    monto_pagado = models.CharField()
     fecha_pago = models.DateField()
     estado_pago = models.CharField(max_length=20, choices=ESTADO_PAGO_CHOICES, default='realizado')
     tipo_pago = models.CharField(max_length=20, choices=TIPO_PAGO_CHOICES, default='principal')

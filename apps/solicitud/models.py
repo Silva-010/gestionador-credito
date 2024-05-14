@@ -31,10 +31,10 @@ class SolicitudCredito(models.Model):
     fecha_registro = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def natural_key(self):
-        return f"Solicitud de {self.cliente} | {self.estado_solicitud}"
+        return f"Solicitud de {self.cliente} por {self.monto_solicitado}"
 
     def __str__(self):
-        return f"Solicitud de {self.cliente} a {self.banco}"
+        return f"Solicitud de {self.cliente} a {self.banco} por {self.monto_solicitado}"
 
     class Meta:
         verbose_name = 'Solicitud de Credito'
